@@ -1,0 +1,203 @@
+{
+  "name": "claude-team-manager",
+  "displayName": "Claude Team Manager",
+  "description": "Manage Claude Code sessions by team roles — create role groups, track sessions, work with multiple roles in parallel.",
+  "version": "0.1.0",
+  "publisher": "haoyk",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haoyk/claude-team-manager"
+  },
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": ["AI", "Other"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "claude-team",
+          "title": "Claude Team",
+          "icon": "$(organization)"
+        }
+      ]
+    },
+    "views": {
+      "claude-team": [
+        {
+          "id": "claudeTeamRoles",
+          "name": "Team Roles",
+          "icon": "$(organization)",
+          "contextualTitle": "Claude Team"
+        }
+      ],
+      "explorer": [
+        {
+          "id": "claudeTeamRolesExplorer",
+          "name": "Claude Team",
+          "icon": "$(organization)",
+          "visibility": "collapsed"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "claudeTeam.addRole",
+        "title": "Add Role",
+        "icon": "$(add)",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.editRole",
+        "title": "Edit Role",
+        "icon": "$(edit)",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.deleteRole",
+        "title": "Delete Role",
+        "icon": "$(trash)",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.newSession",
+        "title": "New Session",
+        "icon": "$(comment-discussion)",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.resumeSession",
+        "title": "Resume Session",
+        "icon": "$(debug-continue)",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.renameSession",
+        "title": "Rename Session",
+        "icon": "$(edit)",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.deleteSession",
+        "title": "Delete Session",
+        "icon": "$(trash)",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.refreshTree",
+        "title": "Refresh",
+        "icon": "$(refresh)",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.initTeam",
+        "title": "Initialize Team from Preset",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.openSettings",
+        "title": "Settings",
+        "icon": "$(gear)",
+        "category": "Claude Team"
+      },
+      {
+        "command": "claudeTeam.showUsage",
+        "title": "Usage",
+        "icon": "$(info)",
+        "category": "Claude Team"
+      }
+    ],
+    "configuration": {
+      "title": "Claude Team Manager",
+      "properties": {
+        "claudeTeam.sessionMode": {
+          "type": "string",
+          "enum": ["terminal", "vscode-extension"],
+          "enumDescriptions": [
+            "在终端中启动 claude CLI（交互模式）",
+            "通过 VS Code 的 Claude Code 插件打开新 Tab"
+          ],
+          "default": "terminal",
+          "description": "选择打开 Claude 会话的方式"
+        },
+        "claudeTeam.skipPermissions": {
+          "type": "boolean",
+          "default": false,
+          "description": "启动会话时自动添加 --dangerously-skip-permissions 参数，跳过所有工具确认",
+          "markdownDescription": "启动会话时自动添加 `--dangerously-skip-permissions` 参数，跳过所有工具确认。\n\n- **开启**: 新建/恢复会话时免确认（适合个人开发机）\n- **关闭**: 默认方式启动，每次操作需手动确认"
+        }
+      }
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "claudeTeam.addRole",
+          "when": "view == claudeTeamRoles || view == claudeTeamRolesExplorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "claudeTeam.refreshTree",
+          "when": "view == claudeTeamRoles || view == claudeTeamRolesExplorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "claudeTeam.showUsage",
+          "when": "view == claudeTeamRoles || view == claudeTeamRolesExplorer",
+          "group": "navigation@3"
+        },
+        {
+          "command": "claudeTeam.openSettings",
+          "when": "view == claudeTeamRoles || view == claudeTeamRolesExplorer",
+          "group": "navigation@4"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "claudeTeam.newSession",
+          "when": "(view == claudeTeamRoles || view == claudeTeamRolesExplorer) && viewItem =~ /^role/",
+          "group": "inline"
+        },
+        {
+          "command": "claudeTeam.editRole",
+          "when": "(view == claudeTeamRoles || view == claudeTeamRolesExplorer) && viewItem =~ /^role/",
+          "group": "1_role@1"
+        },
+        {
+          "command": "claudeTeam.deleteRole",
+          "when": "(view == claudeTeamRoles || view == claudeTeamRolesExplorer) && viewItem == role",
+          "group": "1_role@2"
+        },
+        {
+          "command": "claudeTeam.resumeSession",
+          "when": "(view == claudeTeamRoles || view == claudeTeamRolesExplorer) && viewItem == session",
+          "group": "inline"
+        },
+        {
+          "command": "claudeTeam.renameSession",
+          "when": "(view == claudeTeamRoles || view == claudeTeamRolesExplorer) && viewItem == session",
+          "group": "1_session@1"
+        },
+        {
+          "command": "claudeTeam.deleteSession",
+          "when": "(view == claudeTeamRoles || view == claudeTeamRolesExplorer) && viewItem == session",
+          "group": "1_session@2"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.5.0",
+    "@vscode/vsce": "^3.0.0"
+  }
+}
