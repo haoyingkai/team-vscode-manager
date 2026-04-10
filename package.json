@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/haoyk/claude-team-manager"
+    "url": "https://gitee.com/hao_yk/hykvscodeplugin_claudeteam.git"
   },
   "engines": {
     "vscode": "^1.100.0"
