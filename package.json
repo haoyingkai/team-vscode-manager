@@ -2,7 +2,7 @@
   "name": "claude-team-manager",
   "displayName": "Claude Team Manager",
   "description": "Manage Claude Code sessions by team roles — create role groups, track sessions, work with multiple roles in parallel.",
-  "version": "0.1.0",
+  "version": "0.2.0-dev",
   "publisher": "Haoyk6",
   "license": "MIT",
   "repository": {
