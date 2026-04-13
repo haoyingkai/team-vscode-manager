@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/haoyingkai/team-skills.git"
+    "url": "https://github.com/haoyingkai/team-vscode-manager.git"
   },
   "engines": {
     "vscode": "^1.100.0"
