@@ -51,6 +51,12 @@
         "category": "Claude Team"
       },
       {
+        "command": "claudeTeam.renameRole",
+        "title": "Rename Role",
+        "icon": "$(symbol-text)",
+        "category": "Claude Team"
+      },
+      {
         "command": "claudeTeam.editRole",
         "title": "Edit Role",
         "icon": "$(edit)",
@@ -161,14 +167,19 @@
           "group": "inline"
         },
         {
-          "command": "claudeTeam.editRole",
+          "command": "claudeTeam.renameRole",
           "when": "(view == claudeTeamRoles || view == claudeTeamRolesExplorer) && viewItem =~ /^role/",
           "group": "1_role@1"
         },
         {
+          "command": "claudeTeam.editRole",
+          "when": "(view == claudeTeamRoles || view == claudeTeamRolesExplorer) && viewItem =~ /^role/",
+          "group": "1_role@2"
+        },
+        {
           "command": "claudeTeam.deleteRole",
           "when": "(view == claudeTeamRoles || view == claudeTeamRolesExplorer) && viewItem == role",
-          "group": "1_role@2"
+          "group": "1_role@3"
         },
         {
           "command": "claudeTeam.resumeSession",

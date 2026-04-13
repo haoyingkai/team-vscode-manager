@@ -256,6 +256,22 @@ export async function activate(context: vscode.ExtensionContext) {
     })
   );
 
+  // 重命名角色
+  context.subscriptions.push(
+    vscode.commands.registerCommand('claudeTeam.renameRole', async (item?: RoleTreeItem) => {
+      if (!(item instanceof RoleTreeItem)) { return; }
+      const role = item.role;
+      const newName = await vscode.window.showInputBox({
+        prompt: `重命名角色「${role.name}」`,
+        value: role.name,
+      });
+      if (newName && newName !== role.name) {
+        await configManager.updateRole(role.id, { name: newName });
+        treeProvider.refresh();
+      }
+    })
+  );
+
   // 编辑角色
   context.subscriptions.push(
     vscode.commands.registerCommand('claudeTeam.editRole', async (item?: RoleTreeItem) => {
